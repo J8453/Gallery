@@ -1,0 +1,99 @@
+var express = require('express');
+var router = express.Router();
+
+const path = require('path');
+const fs = require('fs');
+
+const Album = require('../model/album.js');
+const Image = require('../model/image.js');
+
+router.get('/:id', function(req, res, next) {
+	Album.findOne({
+		where: {
+			id: req.params.id
+		}
+	}).then(data=>{
+		if (data) {
+			res.send(data.dataValues);
+		} else {
+			res.status(404).end()
+		}
+	}).catch(err=>{
+		console.log(err);
+	})	
+})
+
+router.get('/user/:id', function(req, res, next) {
+	Album.findAll({
+		where: {
+			userId: req.params.id
+		}
+	}).then(dataArr=>{
+		if (dataArr.length!==0) {
+			const output = dataArr.reduce((albumArr, data)=>{
+				albumArr.push(data.dataValues);
+				return albumArr;
+			}, [])
+			res.send(output);
+		} else {
+			res.send([]); //沒有這個userId跟這個userId沒有相簿都會到這裡
+		}
+	}).catch(err=>{
+		console.log(err);
+	})	
+})
+
+router.patch('/:id/:column', function(req, res, next) {
+	if (req.params.column==='info') {
+		Album.update({
+			name: req.body.name,
+			description: req.body.description
+		},{
+			where: { 
+				id: req.params.id
+			}
+		}).then(()=>{
+			res.send(req.body);
+		}).catch(err=>{
+			console.log(err);
+		})
+	} else if (req.params.column==='cover') {
+		Image.findOne({
+			where: {
+				id: req.body.imageId
+			}
+		}).then(data=>{
+			return data.dataValues.src;
+		}).then(targetSrc=>{
+			Album.update({
+				coverSrc: targetSrc
+			},{
+				where: { 
+					id: req.params.id
+				}
+			}).then(()=>{
+				res.send({
+					coverSrc: targetSrc
+				});
+			}).catch(err=>{
+				console.log(err);
+			})
+		}).catch(err=>{
+			console.log(err);
+		})	
+	}	
+})
+
+router.delete('/', function(req, res, next) {
+	Album.destroy({
+		where: {
+			id: req.body.idArr
+		}
+	}).then(()=>{
+		res.status(200).end()
+	}).catch(err=>{
+		console.log(err);
+	})
+})
+
+module.exports = router;
