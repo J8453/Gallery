@@ -1,0 +1,81 @@
+/* Home-page bg*/
+.bg {
+    width: 100%;
+    height: 80%;
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.bg:after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: url("/images/bg.jpg") center center;
+    background-size: cover;
+    position: absolute;
+    z-index: -1;
+}
+
+.bg * {
+    flex-basis: 100%;
+}
+
+.bg .title {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    font-size: 5em;
+    color: #FFFFFF;
+    text-shadow: 3px 3px 5px #00000080;
+}
+
+.bg .description {
+    display: flex;
+    justify-content: center;
+
+    color: #FFFFFF;
+}
+
+.bg .buttons {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+/* Home-page bg */
+
+.bg .btn {
+    /*padding: 15px;*/
+    margin: 20px 10px;
+    font-size: 1.2em;
+
+    flex: 0 1 200px;
+
+    /*transition: all 0.2s;*/
+    background: none;
+    border: 1px solid #FFFFFF;
+    /*color: #FFFFFF;*/
+}
+
+.bg .btn:hover {
+    /*cursor: pointer;*/
+    background: #CC543A60;
+    border: 1px solid #CC543A;
+    /*color: #CC543A;*/
+    /*box-shadow: 3px 3px 5px #00000080;*/
+    /*text-shadow: 0px 0px 3px #FFFFFF;*/
+}
+
+#profileBtn {
+    display: flex;
+    padding: 0;
+}
+
+#profileBtn a {
+    padding: 15px;
+    text-decoration: none;
+    color: #FFFFFF;
+}
