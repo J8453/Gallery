@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-
 import { connect } from 'react-redux';
 import { addAlbum } from '../actions';
-import axios from 'axios';
 
 class CreateAlbumForm extends React.Component {
     constructor(props) {

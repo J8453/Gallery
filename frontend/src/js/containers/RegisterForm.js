@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import axios from 'axios';
-
 import { connect } from 'react-redux';
 import { login, showWindow } from '../actions';
+import axios from 'axios';
 
 class RegisterForm extends React.Component {
     constructor(props) {

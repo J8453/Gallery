@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 import Window from "../containers/Window";
 import Info from "../components/Info";

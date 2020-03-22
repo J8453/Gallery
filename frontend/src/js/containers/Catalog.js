@@ -59,9 +59,6 @@ class Catalog extends React.Component {
 			color: '#CC543A',
 			marginLeft: '10px'
 		};
-		const cssHide = {
-			display: 'none'
-		};
 		const bgPink = {
 			backgroundColor: '#F6E7E4'
 		};

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import axios from 'axios';
 
 import EditPersonalInfoForm from '../containers/EditPersonalInfoForm';
 import EditAlbumInfoForm from '../containers/EditAlbumInfoForm';

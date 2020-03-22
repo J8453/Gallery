@@ -1,6 +1,6 @@
 import { ActionType } from 'redux-promise-middleware'
 
-import { GET_IMAGES, DELETE_IMAGES, ADD_IMAGES, TOGGLE_SELECT_MODE, SINGLE_SELECT, REVISE_SELECTED_ID_ARR, UPDATE_SINGLE_SELECTED_ID } from '../actionTypes'
+import { GET_IMAGES, DELETE_IMAGES, PATCH_ALBUM_COVER, ADD_IMAGES, TOGGLE_SELECT_MODE, SINGLE_SELECT, REVISE_SELECTED_ID_ARR, UPDATE_SINGLE_SELECTED_ID } from '../actionTypes'
 
 const initialState = {
 	isGetImagesRequesting: false,
@@ -82,6 +82,14 @@ function AlbumReducer(state = initialState, action) {
 		case `${DELETE_IMAGES}_${ActionType.Rejected}`: {
 			return Object.assign({}, state, {
 				isDeleteImagesRequesting: false
+			})
+		}
+		case `${PATCH_ALBUM_COVER}_${ActionType.Fulfilled}`: {
+			return Object.assign({}, state, {
+				isSelectMode: false,
+				selectedImages: [],
+				isSingleSelect: false,
+				singleSelectedId: ''
 			})
 		}
 		case `${ADD_IMAGES}_${ActionType.Fulfilled}`: {

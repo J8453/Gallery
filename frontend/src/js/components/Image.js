@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom'; // will use for link to show single image (maybe)
 
 class Image extends React.Component {
 	constructor(props) {

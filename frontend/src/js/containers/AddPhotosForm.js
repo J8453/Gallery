@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-
 import { connect } from 'react-redux';
 import { addImages } from '../actions';
-import axios from 'axios';
 
 class AddPhotosForm extends React.Component {
     constructor(props) {

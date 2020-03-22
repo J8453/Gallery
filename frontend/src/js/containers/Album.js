@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { connect } from 'react-redux';
-import { getImages, patchAlbumCover, toggleSelectMode, singleSelect, deleteImages, previewPortrait } from '../actions';
+import { getImages, patchAlbumCover, toggleSelectMode, deleteImages } from '../actions';
 
 import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
@@ -26,7 +26,7 @@ class Album extends React.Component {
 	}
 
 	handleDelete() {
-		const { selectedImages, deleteImages, toggleSelectMode } = this.props;
+		const { selectedImages, deleteImages } = this.props;
 		if (selectedImages.length===0) return alert("you haven't selected anything.");
 		if (window.confirm('Are you sure?')) {
 			deleteImages(selectedImages);
@@ -38,10 +38,9 @@ class Album extends React.Component {
 
 	handleConfirm() {
 		// 就去patch
-		const { patchAlbumCover, singleSelectedId, toggleSelectMode } = this.props;
+		const { patchAlbumCover, singleSelectedId } = this.props;
 		const { albumId } = this.props.match.params;
 		patchAlbumCover(albumId, singleSelectedId);
-		toggleSelectMode();
 	}
 
 	componentDidMount() {
@@ -60,7 +59,7 @@ class Album extends React.Component {
 
 	render() {
 		// console.log('Album render');
-		const { images, isGetImagesRequesting, isSelectMode, isSingleSelect, toggleSelectMode, selectedImages } = this.props;
+		const { images, isGetImagesRequesting, isSelectMode, isSingleSelect, toggleSelectMode } = this.props;
 
 		const { url } = this.props.match;
 		const prevUrl = url.slice(0, url.indexOf('/album/'));
@@ -70,9 +69,6 @@ class Album extends React.Component {
 			color: '#CC543A',
 			marginLeft: '10px'
 		}
-		const cssHide = {
-			display: 'none'
-		};
 		const bgPink = {
 			backgroundColor: '#F6E7E4'
 		};
