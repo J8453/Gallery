@@ -1,6 +1,6 @@
 import { ActionType } from 'redux-promise-middleware'
 
-import { GET_IMAGES, DELETE_IMAGES, TOGGLE_SELECT_MODE, SINGLE_SELECT, REVISE_SELECTED_ID_ARR, UPDATE_SINGLE_SELECTED_ID } from '../actionTypes'
+import { GET_IMAGES, DELETE_IMAGES, ADD_IMAGES, TOGGLE_SELECT_MODE, SINGLE_SELECT, REVISE_SELECTED_ID_ARR, UPDATE_SINGLE_SELECTED_ID } from '../actionTypes'
 
 const initialState = {
 	isGetImagesRequesting: false,
@@ -67,18 +67,28 @@ function AlbumReducer(state = initialState, action) {
 		case `${DELETE_IMAGES}_${ActionType.Fulfilled}`: {
 			let images = [...state.images];
 			const imageIdArr = [...state.selectedImages];
+			console.log('imageIdArr: ', imageIdArr);
 			imageIdArr.forEach(imageId=>{
 				images = images.filter(image => image.id !== imageId)
 			})
+			console.log('images: ', images);
 			return Object.assign({}, state, {
 				isDeleteImagesRequesting: false,
 				images,
-				selectedImages: []
+				selectedImages: [],
+				isSelectMode: false
 			})
 		}
 		case `${DELETE_IMAGES}_${ActionType.Rejected}`: {
 			return Object.assign({}, state, {
 				isDeleteImagesRequesting: false
+			})
+		}
+		case `${ADD_IMAGES}_${ActionType.Fulfilled}`: {
+			const images = [...state.images];
+			images.push(...action.payload.data); //action.payload.data應是一個array
+			return Object.assign({}, state, {
+				images
 			})
 		}
 		default:

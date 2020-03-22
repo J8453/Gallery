@@ -19,8 +19,10 @@ class Card extends React.Component {
             left,
             width
         };
-        cardArea.style.transform = `translateX(${contentInfo.left}px)`;
-        cardArea.style.width = `${contentInfo.width}px`;
+        if (cardArea) {
+            cardArea.style.transform = `translateX(${contentInfo.left}px)`;
+            cardArea.style.width = `${contentInfo.width}px`;    
+        }
     }
 
     handleClose(e) {

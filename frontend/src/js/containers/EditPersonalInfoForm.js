@@ -21,7 +21,13 @@ class EditPersonalInfoForm extends React.Component {
         e.preventDefault();
         const { patchUserInfo } = this.props;
         const { userId } = this.props.match.params;
-        patchUserInfo(userId, this.state.description);
+        const newInfo = {};
+        if (this.state.description==='' && this.props.description!=='' ) {
+            newInfo.description = this.props.description;
+        } else {
+            newInfo.description = this.state.description;
+        }
+        patchUserInfo(userId, newInfo);
     }
 
     render() {

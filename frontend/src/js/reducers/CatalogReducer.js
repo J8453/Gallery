@@ -1,6 +1,6 @@
 import { ActionType } from 'redux-promise-middleware'
 
-import { GET_ALBUMS, DELETE_ALBUMS, TOGGLE_SELECT_MODE, REVISE_SELECTED_ID_ARR } from '../actionTypes'
+import { GET_ALBUMS, DELETE_ALBUMS, ADD_ALBUM, TOGGLE_SELECT_MODE, REVISE_SELECTED_ID_ARR } from '../actionTypes'
 
 const initialState = {
 	isGetAlbumsRequesting: false,
@@ -64,6 +64,13 @@ function CatalogReducer(state = initialState, action) {
 		case `${DELETE_ALBUMS}_${ActionType.Rejected}`: {
 			return Object.assign({}, state, {
 				isDeleteAlbumsRequesting: false
+			})
+		}
+		case `${ADD_ALBUM}_${ActionType.Fulfilled}`: {
+			const albums = [...state.albums];
+			albums.push(action.payload.data); //action.payload.data應是一個object(album)
+			return Object.assign({}, state, {
+				albums
 			})
 		}
 		default:

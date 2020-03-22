@@ -36,7 +36,7 @@ router.post('/register', function(req, res, next) {
 		description: 'Welcome to my page :).'
 	})
 		.then(data=>{
-			const userFolder = path.join(__dirname, `../../frontend/images/uploads/${req.body.username}`);
+			const userFolder = path.join(__dirname, `../../frontend/public/images/uploads/${req.body.username}`);
 			fs.mkdir(userFolder, { recursive: true }, (err) => {
 			  if (err) throw err;
 			});

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { connect } from 'react-redux';
-import { getImages, patchAlbumCover, toggleSelectMode, singleSelect, reviseSelectedIdArr, updateSingleSelectedId, deleteImages, previewPortrait } from '../actions';
+import { getImages, patchAlbumCover, toggleSelectMode, singleSelect, deleteImages, previewPortrait } from '../actions';
 
 import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
-import Image from '../components/Image';
+import Image from '../containers/Image';
 
 class Album extends React.Component {
 
@@ -28,14 +28,12 @@ class Album extends React.Component {
 	handleDelete() {
 		const { selectedImages, deleteImages, toggleSelectMode } = this.props;
 		if (selectedImages.length===0) return alert("you haven't selected anything.");
-		// if (confirm('Are you sure?')) {
-		// 	deleteImages(selectedImages);
-		// 	toggleSelectMode();
-		// } else {
-		// 	return;
-		// }
+		if (window.confirm('Are you sure?')) {
+			deleteImages(selectedImages);
+		} else {
+			return;
+		}
 		deleteImages(selectedImages);
-		toggleSelectMode();
 	}
 
 	handleConfirm() {
@@ -62,7 +60,7 @@ class Album extends React.Component {
 
 	render() {
 		// console.log('Album render');
-		const { images, isGetImagesRequesting, isSelectMode, isSingleSelect, toggleSelectMode, reviseSelectedIdArr, updateSingleSelectedId, selectedImages, singleSelectedId, previewPortrait } = this.props;
+		const { images, isGetImagesRequesting, isSelectMode, isSingleSelect, toggleSelectMode, selectedImages } = this.props;
 
 		const { url } = this.props.match;
 		const prevUrl = url.slice(0, url.indexOf('/album/'));
@@ -87,7 +85,7 @@ class Album extends React.Component {
 					{ isSelectMode && <span></span> }
 					{ isSelectMode &&
 						<span>
-							{ !isSingleSelect && <span style={textCss} onClick={() => {if(window.confirm('Delete the item?')){this.handleDelete()};}}>Delete</span> }
+							{ !isSingleSelect && <span style={textCss} onClick={this.handleDelete.bind(this)}>Delete</span> }
 							{ isSingleSelect && <span style={textCss} onClick={this.handleConfirm.bind(this)}>Confirm</span> }
 							<span style={textCss} onClick={toggleSelectMode}>Cancel</span>
 						</span>
@@ -100,13 +98,7 @@ class Album extends React.Component {
 						<Image 
 							key={image.id}
 							imageId={image.id}
-							src={image.src}
-							isSelectMode={isSelectMode}
-							toggleSelectModeCallback={reviseSelectedIdArr}
-							isSingleSelect={isSingleSelect}
-							singleSelectedId={singleSelectedId}
-							updateSingleSelectedId={updateSingleSelectedId}
-							previewPortrait={previewPortrait} />
+							src={image.src} />
 					)
 				}) }
 			</div>
@@ -126,10 +118,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	getImages: albumId => dispatch(getImages(albumId)),
 	toggleSelectMode: () => dispatch(toggleSelectMode()),
-	reviseSelectedIdArr: imageId => dispatch(reviseSelectedIdArr(imageId)),
 	deleteImages: imageIdArr => dispatch(deleteImages(imageIdArr)),
-	updateSingleSelectedId: imageId => dispatch(updateSingleSelectedId(imageId)),
-	previewPortrait: imageId => dispatch(previewPortrait(imageId)),
 	patchAlbumCover: (albumId, imageId) => dispatch(patchAlbumCover(albumId, imageId))
 })
 

@@ -29,7 +29,18 @@ class EditAlbumInfoForm extends React.Component {
         e.preventDefault();
         const { patchAlbumInfo } = this.props;
         const { albumId } = this.props.match.params;
-        patchAlbumInfo(albumId, this.state);
+        const newInfo = {};
+        if (this.state.name==='' && this.props.name!=='' ) {
+            newInfo.name = this.props.name;
+        } else {
+            newInfo.name = this.state.name;
+        }
+        if (this.state.description==='' && this.props.description!=='' ) {
+            newInfo.description = this.props.description;
+        } else {
+            newInfo.description = this.state.description;
+        }
+        patchAlbumInfo(albumId, newInfo);
     }
 
     render() {

@@ -1,5 +1,6 @@
 import { LOGIN, GET_ALBUMS, GET_IMAGES, SHOW_CARD, ASKFOR_FORM, SHOW_WINDOW, ASKFOR_WINDOW, DELETE_ALBUMS, DELETE_IMAGES } from './actionTypes';
 import { GET_USER_INFO, PATCH_USER_INFO, GET_ALBUM_INFO, PATCH_ALBUM_INFO, PATCH_ALBUM_COVER, PREVIEW_PORTRAIT, TOGGLE_SELECT_MODE, REVISE_SELECTED_ID_ARR, SINGLE_SELECT, UPDATE_SINGLE_SELECTED_ID } from './actionTypes';
+import { ADD_ALBUM, ADD_IMAGES, PATCH_USER_AVATAR } from './actionTypes';
 
 import axios from 'axios';
 
@@ -63,6 +64,18 @@ export const patchUserInfo = (userId, description) => {
 	}
 }
 
+export const patchUserAvatar = (formData) => {
+	return {
+		type: PATCH_USER_AVATAR,
+		payload: axios({
+            method: 'patch',
+            url: 'http://localhost:3006/upload/avatar',
+            data: formData,
+            headers: {'Content-Type': 'multipart/form-data' }
+        })
+	}
+}
+
 // AlbumInfo
 export const getAlbumInfo = (albumId) => {
 	return {
@@ -113,6 +126,18 @@ export const deleteAlbums = (albumIdArr) => {
 	}
 }
 
+export const addAlbum = (formData) => {
+	return {
+		type: ADD_ALBUM,
+		payload: axios({
+            method: 'post',
+            url: 'http://localhost:3006/upload/album',
+            data: formData,
+            headers: {'Content-Type': 'multipart/form-data'}
+        })
+	}
+}
+
 // Album
 export const getImages = (albumId) => {
 	return {
@@ -131,6 +156,18 @@ export const deleteImages = (imageIdArr) => {
 		    	idArr: imageIdArr
 		  	}
 		})
+	}
+}
+
+export const addImages = (formData) => {
+	return {
+		type: ADD_IMAGES,
+		payload: axios({
+            method: 'post',
+            url: 'http://localhost:3006/upload/image',
+            data: formData,
+            headers: {'Content-Type': 'multipart/form-data' }
+        })
 	}
 }
 

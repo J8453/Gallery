@@ -1,6 +1,6 @@
 import { ActionType } from 'redux-promise-middleware'
 
-import { LOGIN, SHOW_CARD, ASKFOR_FORM, SHOW_WINDOW, ASKFOR_WINDOW, PATCH_USER_INFO, PATCH_ALBUM_INFO } from '../actionTypes'
+import { LOGIN, SHOW_CARD, ASKFOR_FORM, SHOW_WINDOW, ASKFOR_WINDOW, PATCH_USER_INFO, PATCH_ALBUM_INFO, ADD_ALBUM, ADD_IMAGES, PATCH_USER_AVATAR } from '../actionTypes'
 
 const initialState = {
 	isLoggedIn: false,
@@ -35,6 +35,15 @@ function AppReducer(state = initialState, action) {
 			return Object.assign({}, state, {cardIsShown: false})
 		}
 		case `${PATCH_ALBUM_INFO}_${ActionType.Fulfilled}`: {
+			return Object.assign({}, state, {cardIsShown: false})
+		}
+		case `${ADD_ALBUM}_${ActionType.Fulfilled}`: {
+			return Object.assign({}, state, {cardIsShown: false})
+		}
+		case `${ADD_IMAGES}_${ActionType.Fulfilled}`: {
+			return Object.assign({}, state, {cardIsShown: false})
+		}
+		case `${PATCH_USER_AVATAR}_${ActionType.Fulfilled}`: {
 			return Object.assign({}, state, {cardIsShown: false})
 		}
 		default:

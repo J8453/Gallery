@@ -17,12 +17,11 @@ class Image extends React.Component {
 
 	handleClick(imageId) {
 		this.toggleSelectedState();
-		const { toggleSelectModeCallback: reviseSelectedImageIdArr, updateSingleSelectedId, previewPortrait } = this.props;
-		reviseSelectedImageIdArr(imageId);
-		const { isSingleSelect } = this.props;
+		const { isSingleSelect, reviseSelectedIdArr, updateSingleSelectedId, previewPortrait } = this.props;
+		reviseSelectedIdArr(imageId);
+		// for update album cover
 		if (isSingleSelect) {
 			updateSingleSelectedId(imageId);
-			// 預覽功能
 			previewPortrait(imageId);
 		}
 	}
@@ -52,8 +51,7 @@ class Image extends React.Component {
 		const notSelectedCss = {
 			borderColor: 'transparent'
 		}
-		const { imageId, src, isSelectMode, isSingleSelect, selectedImages } = this.props;
-		// const lastSelectedImage = selectedImages.pop();
+		const { imageId, src, isSelectMode } = this.props;
 		return (
 			<div 
 				className="content__img"
@@ -65,7 +63,5 @@ class Image extends React.Component {
 		)
 	}
 }
-
-// style={ (isSelectMode && this.state.isSelected) ? selectedCss : notSelectedCss }
 
 export default Image

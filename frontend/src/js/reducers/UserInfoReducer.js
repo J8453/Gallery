@@ -1,6 +1,6 @@
 import { ActionType } from 'redux-promise-middleware'
 
-import { GET_USER_INFO, PATCH_USER_INFO } from '../actionTypes'
+import { GET_USER_INFO, PATCH_USER_INFO, PATCH_USER_AVATAR } from '../actionTypes'
 
 const initialState = {
 	avatarSrc: '',
@@ -35,6 +35,11 @@ export default function UserInfoReducer(state = initialState, action) {
 		case `${PATCH_USER_INFO}_${ActionType.Fulfilled}`: {
 			return Object.assign({}, state, {
 				description: action.payload.data.description 
+			})
+		}
+		case `${PATCH_USER_AVATAR}_${ActionType.Fulfilled}`: {
+			return Object.assign({}, state, {
+				avatarSrc: action.payload.data.avatarSrc 
 			})
 		}
 		default:
