@@ -1,9 +1,10 @@
+require('dotenv').config();
 // 透過 sequelize (library) 做到 ORM
 // Sequelize is a promise-based Node.js ORM for Postgres, MySQL, MariaDB, SQLite and Microsoft SQL Server.
 // https://sequelize.org/
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('gallerydb', 'root', 'cccvv2583', {
-	host: 'localhost',
+const sequelize = new Sequelize('gallerydb', process.env.DB_USERNAME, process.env.DB_PASSWORD, {
+	host: process.env.DB_HOST,
 	dialect: 'mysql'
 });
 

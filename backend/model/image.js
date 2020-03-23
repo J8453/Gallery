@@ -5,6 +5,9 @@ const Image = db.define('image', {
 	src: {
 		type: Sequelize.STRING
 	},
+	deletehash: {
+		type: Sequelize.STRING
+	},
 	userId: {
 		type: Sequelize.STRING
 	},

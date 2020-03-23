@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { addImages } from '../actions';
+import axios from 'axios';
 
 class AddPhotosForm extends React.Component {
     constructor(props) {
@@ -20,19 +21,51 @@ class AddPhotosForm extends React.Component {
         e.preventDefault();
         const { addImages } = this.props;
         const { userId, albumId } = this.props.match.params;
-        const formData = new FormData();
+        // const formData = new FormData();
         const files = [...this.state.files];
-        files.forEach((file, index)=>{
-            formData.append('image', file, `file${index}.jpg`);
-        })
-        formData.append('userId', userId);
-        formData.append('albumId', albumId);
-        addImages(formData); 
+        // files.forEach((file, index)=>{
+        //     formData.append('image', file, `file${index}.jpg`);
+        // })
+        // formData.append('userId', userId);
+        // formData.append('albumId', albumId);
+        // addImages(formData); 
         // 現在這個動作做完之後會reload
+        const config = {
+            headers: {
+                'Content-type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Client-ID 329e78071fa9118'
+            }
+        };
+        const requests = files.map(file => {
+            const data = new FormData();
+            data.append('image', file);
+            return axios.post('https://api.imgur.com/3/image', data, config);
+        });
+        Promise.all(requests)
+            .then(responses => {
+                const finalData = {
+                    userId: userId,
+                    albumId: albumId,
+                    images: []
+                };
+                responses.forEach(res => {
+                    finalData.images.push({
+                        src: res.data.data.link,
+                        deletehash: res.data.data.deletehash
+                    });
+                });
+                return finalData;
+            })
+            .then(finalData=>{
+                addImages(finalData);
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     render() {
-        console.log(this.props);
+        // console.log(this.props);
         return(
             <form action="" method="post" encType="multipart/form-data" id="addPhotosForm" onSubmit={this.handleSubmit.bind(this)} >
                 <div className="form__row form__title">
@@ -52,7 +85,7 @@ class AddPhotosForm extends React.Component {
 
 
 const mapDispatchToProps = dispatch => ({
-  addImages: formData => dispatch(addImages(formData))
+  addImages: data => dispatch(addImages(data))
 })
 
 export default connect(null, mapDispatchToProps)(AddPhotosForm)

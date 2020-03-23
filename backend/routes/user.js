@@ -35,7 +35,23 @@ router.patch('/:id/:column', function(req, res, next) {
 		}).catch(err=>{
 			console.log(err);
 		})
-	};		
+	} else if (req.params.column==='avatar') {
+		// console.log(req.body);
+		const imageObjArr = req.body.images;
+		User.update({
+			avatarSrc: imageObjArr[0].src
+		},{
+			where: {
+				id: req.params.id
+			}
+		}).then(()=>{
+			res.send({
+				avatarSrc: imageObjArr[0].src
+			})
+		}).catch(err=>{
+			console.log(err);
+		})
+	};	
 })
 
 module.exports = router;

@@ -42,6 +42,33 @@ router.get('/album/:id', function(req, res, next) {
 	})	
 })
 
+router.post('/', function(req, res, next) {
+	// console.log(req.body);
+	const imageObjArr = req.body.images;
+	const promises = imageObjArr.map(imageObj=>{
+		return Image.create({
+			src: imageObj.src,
+			deletehash: imageObj.deletehash,
+			userId: req.body.userId,
+			albumId: req.body.albumId,
+		})
+	});
+	Promise.all(promises)
+		.then(datas=>{
+			const imageArr = [];
+			datas.forEach(data=>{
+				imageArr.push(data.dataValues);
+			});
+			return imageArr;
+		})
+		.then(imageArr=>{
+			res.send(imageArr);
+		})
+		.catch(err=>{
+			console.log(err);
+		});
+})
+
 router.delete('/', function(req, res, next) {
 	Image.destroy({
 		where: {

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { addAlbum } from '../actions';
+import axios from 'axios';
 
 class CreateAlbumForm extends React.Component {
     constructor(props) {
@@ -34,16 +35,49 @@ class CreateAlbumForm extends React.Component {
         e.preventDefault();
         const { addAlbum } = this.props;
         const { userId } = this.props.match.params;
-        const formData = new FormData();
-        formData.append('name', this.state.name);
-        formData.append('description', this.state.description);
+        // const formData = new FormData();
+        // formData.append('name', this.state.name);
+        // formData.append('description', this.state.description);
         const files = [...this.state.files];
-        files.forEach((file, index)=>{
-            formData.append('image', file, `file${index}.jpg`);
-        })
-        formData.append('userId', userId); 
-        addAlbum(formData);
+        // files.forEach((file, index)=>{
+        //     formData.append('image', file, `file${index}.jpg`);
+        // })
+        // formData.append('userId', userId); 
+        // addAlbum(formData);
         // 現在這個動作做完之後會reload
+        const config = {
+            headers: {
+                'Content-type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Client-ID 329e78071fa9118'
+            }
+        };
+        const requests = files.map(file => {
+            const data = new FormData();
+            data.append('image', file);
+            return axios.post('https://api.imgur.com/3/image', data, config);
+        });
+        Promise.all(requests)
+            .then(responses => {
+                const finalData = {
+                    userId: userId,
+                    name: this.state.name,
+                    description: this.state.description,
+                    images: []
+                };
+                responses.forEach(res => {
+                    finalData.images.push({
+                        src: res.data.data.link,
+                        deletehash: res.data.data.deletehash
+                    });
+                });
+                return finalData;
+            })
+            .then(finalData=>{
+                addAlbum(finalData);
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     render() {

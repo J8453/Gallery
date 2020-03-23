@@ -25,11 +25,10 @@ class Catalog extends React.Component {
 	}
 
 	handleDelete() {
-		const { selectedAlbums, deleteAlbums, toggleSelectMode } = this.props;
+		const { selectedAlbums, deleteAlbums } = this.props;
 		if (selectedAlbums.length===0) return alert("you haven't selected anything.");
 		if (window.confirm("Are you sure to delete album? All the images in it will also be deleted and it's impossible to resume.")) {
 			deleteAlbums(selectedAlbums);
-			toggleSelectMode();
 		} else {
 			return;
 		}

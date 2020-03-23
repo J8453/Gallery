@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { patchUserAvatar } from '../actions';
+import axios from 'axios';
 
 class UpdateAvatarForm extends React.Component {
     constructor(props) {
@@ -33,14 +34,42 @@ class UpdateAvatarForm extends React.Component {
         e.preventDefault();
         const { patchUserAvatar } = this.props;
         const { userId } = this.props.match.params;
-        const formData = new FormData();
+        // const formData = new FormData();
         const file = [...this.state.file];
-        formData.append('image', file[0], 'userAvatar.jpg');
-        formData.append('userId', userId);
-        patchUserAvatar(formData);
-        this.setState({
-            file: ''
-        })
+        // formData.append('image', file[0], 'userAvatar.jpg');
+        // formData.append('userId', userId);
+        // patchUserAvatar(formData);
+        const config = {
+            headers: {
+                'Content-type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Client-ID 329e78071fa9118'
+            }
+        };
+        const requests = file.map(file => {
+            const data = new FormData();
+            data.append('image', file);
+            return axios.post('https://api.imgur.com/3/image', data, config);
+        });
+        Promise.all(requests)
+            .then(responses => {
+                const finalData = {
+                    userId: userId,
+                    images: []
+                };
+                responses.forEach(res => {
+                    finalData.images.push({
+                        src: res.data.data.link,
+                        deletehash: res.data.data.deletehash
+                    });
+                });
+                return finalData;
+            })
+            .then(finalData=>{
+                patchUserAvatar(finalData);
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     render() {

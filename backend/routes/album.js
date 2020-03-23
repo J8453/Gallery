@@ -43,6 +43,35 @@ router.get('/user/:id', function(req, res, next) {
 	})	
 })
 
+router.post('/', function(req, res, next) {
+	Album.create({
+		name: req.body.name,
+		description: req.body.description,
+		userId: req.body.userId,
+		coverSrc: req.body.images[0].src
+	})
+		.then(data=>data.dataValues)
+		.then(album=>{
+			const albumId = album.id;
+			const imageObjArr = req.body.images;
+			const promises = imageObjArr.map(imageObj=>{
+				return Image.create({
+					src: imageObj.src,
+					deletehash: imageObj.deletehash,
+					userId: req.body.userId,
+					albumId
+				})
+			});
+			Promise.all(promises)
+				.then(()=>{
+					res.send(album);
+				})
+				.catch(err=>{
+					console.log(err);
+				});
+		})	
+})
+
 router.patch('/:id/:column', function(req, res, next) {
 	if (req.params.column==='info') {
 		Album.update({
@@ -90,7 +119,21 @@ router.delete('/', function(req, res, next) {
 			id: req.body.idArr
 		}
 	}).then(()=>{
-		res.status(200).end()
+		const albumIdArr = req.body.idArr;
+		const promises = albumIdArr.map(id=>{
+			return Image.destroy({
+				where: {
+					albumId: id
+				}
+			})
+		});
+		Promise.all(promises)
+			.then(()=>{
+				res.status(200).end();
+			})
+			.catch(err=>{
+				console.log(err);
+			});
 	}).catch(err=>{
 		console.log(err);
 	})

@@ -7,7 +7,6 @@ const session = require('express-session');
 const cors = require('cors');
 
 const indexRouter = require('./routes/index');
-const uploadRouter = require('./routes/upload');
 const userRouter = require('./routes/user');
 const albumRouter = require('./routes/album');
 const imageRouter = require('./routes/image');
@@ -29,7 +28,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ secret: 'keyboard cat', cookie: {maxAge: 6000000}}));
 
 app.use('/', indexRouter);
-app.use('/upload', uploadRouter);
 app.use('/user', userRouter);
 app.use('/album', albumRouter);
 app.use('/image', imageRouter);

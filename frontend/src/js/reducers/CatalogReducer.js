@@ -1,6 +1,6 @@
 import { ActionType } from 'redux-promise-middleware'
 
-import { GET_ALBUMS, DELETE_ALBUMS, ADD_ALBUM, TOGGLE_SELECT_MODE, REVISE_SELECTED_ID_ARR } from '../actionTypes'
+import { GET_ALBUMS, DELETE_ALBUMS, ADD_ALBUM, TOGGLE_SELECT_MODE, REVISE_SELECTED_ID_ARR, PATCH_ALBUM_COVER } from '../actionTypes'
 
 const initialState = {
 	isGetAlbumsRequesting: false,
@@ -58,6 +58,7 @@ function CatalogReducer(state = initialState, action) {
 			return Object.assign({}, state, {
 				isDeleteAlbumsRequesting: false,
 				albums,
+				isSelectMode: false,
 				selectedAlbums: []
 			})
 		}
@@ -71,6 +72,12 @@ function CatalogReducer(state = initialState, action) {
 			albums.push(action.payload.data); //action.payload.data應是一個object(album)
 			return Object.assign({}, state, {
 				albums
+			})
+		}
+		case `${PATCH_ALBUM_COVER}_${ActionType.Fulfilled}`: {
+			return Object.assign({}, state, {
+				isSelectMode: false,
+				selectedAlbums: [],
 			})
 		}
 		default:

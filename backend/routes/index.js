@@ -35,13 +35,7 @@ router.post('/register', function(req, res, next) {
 		avatarSrc: '/images/defaultAvatar.jpg',
 		description: 'Welcome to my page :).'
 	})
-		.then(data=>{
-			const userFolder = path.join(__dirname, `../../frontend/public/images/uploads/${req.body.username}`);
-			fs.mkdir(userFolder, { recursive: true }, (err) => {
-			  if (err) throw err;
-			});
-			return data.dataValues;
-		})
+		.then(data=>data.dataValues)
 		.then(data=>{
 			console.log(data);
 			res.send(data);

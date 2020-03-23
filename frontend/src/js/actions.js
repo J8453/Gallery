@@ -64,14 +64,24 @@ export const patchUserInfo = (userId, description) => {
 	}
 }
 
-export const patchUserAvatar = (formData) => {
+// export const patchUserAvatar = (formData) => {
+// 	return {
+// 		type: PATCH_USER_AVATAR,
+// 		payload: axios({
+//             method: 'patch',
+//             url: 'http://localhost:3006/upload/avatar',
+//             data: formData,
+//             headers: {'Content-Type': 'multipart/form-data' }
+//         })
+// 	}
+// }
+export const patchUserAvatar = (data) => {
 	return {
 		type: PATCH_USER_AVATAR,
 		payload: axios({
             method: 'patch',
-            url: 'http://localhost:3006/upload/avatar',
-            data: formData,
-            headers: {'Content-Type': 'multipart/form-data' }
+            url: `http://localhost:3006/user/${data.userId}/avatar`,
+            data
         })
 	}
 }
@@ -126,14 +136,24 @@ export const deleteAlbums = (albumIdArr) => {
 	}
 }
 
-export const addAlbum = (formData) => {
+// export const addAlbum = (formData) => {
+// 	return {
+// 		type: ADD_ALBUM,
+// 		payload: axios({
+//             method: 'post',
+//             url: 'http://localhost:3006/upload/album',
+//             data: formData,
+//             headers: {'Content-Type': 'multipart/form-data'}
+//         })
+// 	}
+// }
+export const addAlbum = (data) => {
 	return {
 		type: ADD_ALBUM,
 		payload: axios({
             method: 'post',
-            url: 'http://localhost:3006/upload/album',
-            data: formData,
-            headers: {'Content-Type': 'multipart/form-data'}
+            url: 'http://localhost:3006/album',
+            data
         })
 	}
 }
@@ -159,14 +179,24 @@ export const deleteImages = (imageIdArr) => {
 	}
 }
 
-export const addImages = (formData) => {
+// export const addImages = (formData) => {
+// 	return {
+// 		type: ADD_IMAGES,
+// 		payload: axios({
+//             method: 'post',
+//             url: 'http://localhost:3006/upload/image',
+//             data: formData,
+//             headers: {'Content-Type': 'multipart/form-data' }
+//         })
+// 	}
+// }
+export const addImages = (data) => {
 	return {
 		type: ADD_IMAGES,
 		payload: axios({
             method: 'post',
-            url: 'http://localhost:3006/upload/image',
-            data: formData,
-            headers: {'Content-Type': 'multipart/form-data' }
+            url: 'http://localhost:3006/image',
+            data
         })
 	}
 }
