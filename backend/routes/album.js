@@ -7,10 +7,11 @@ const fs = require('fs');
 const Album = require('../model/album.js');
 const Image = require('../model/image.js');
 
-router.get('/:id', function(req, res, next) {
+router.get('/info/:id/:userid', function(req, res, next) {
 	Album.findOne({
 		where: {
-			id: req.params.id
+			id: req.params.id,
+			userId: req.params.userid
 		}
 	}).then(data=>{
 		if (data) {
@@ -24,6 +25,7 @@ router.get('/:id', function(req, res, next) {
 })
 
 router.get('/user/:id', function(req, res, next) {
+	console.log(req.params.id)
 	Album.findAll({
 		where: {
 			userId: req.params.id

@@ -35,13 +35,22 @@ class Catalog extends React.Component {
 	}
 
 	componentDidMount() {
-		// console.log('componentDidMount');
+		console.log('componentDidMount');
 		this.sizeFunctionalRow();
         window.addEventListener('resize', this.sizeFunctionalRow);
 
 		const { getAlbums } = this.props;
 		const { userId } = this.props.match.params;
 		getAlbums(userId);
+	}
+
+	shouldComponentUpdate(nextProps, nextState) {
+	  	if (this.props.match.params.userId !== nextProps.match.params.userId) {
+	  		const { getAlbums } = this.props;
+	  		const { userId } = nextProps.match.params;
+	  		getAlbums(userId);
+	  	};
+	  	return true;
 	}
 
 	componentWillUnmount(){

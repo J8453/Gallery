@@ -20,15 +20,15 @@ class AlbumPortrait extends React.Component {
 
   componentDidMount() {
   	const { getAlbumInfo } = this.props;
-  	const { albumId } = this.props.match.params;
-  	getAlbumInfo(albumId);
+  	const { albumId, userId } = this.props.match.params;
+  	getAlbumInfo(albumId, userId);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-  	if (this.props.match.params.albumId !== nextProps.match.params.albumId) {
+  	if (this.props.match.params.albumId !== nextProps.match.params.albumId || this.props.match.params.userId !== nextProps.match.params.userId) {
   		const { getAlbumInfo } = this.props;
-  		const { albumId } = nextProps.match.params;
-  		getAlbumInfo(albumId);
+  		const { albumId, userId } = nextProps.match.params;
+  		getAlbumInfo(albumId, userId);
   	};
   	return true;
   }
@@ -71,7 +71,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   showCard: bool => dispatch(showCard(bool)),
   askForForm: formTitle => dispatch(askForForm(formTitle)),
-  getAlbumInfo: albumId => dispatch(getAlbumInfo(albumId)),
+  getAlbumInfo: (albumId, userId) => dispatch(getAlbumInfo(albumId, userId)),
   toggleSelectMode: () => dispatch(toggleSelectMode()),
   singleSelect: bool => dispatch(singleSelect(bool))
 })

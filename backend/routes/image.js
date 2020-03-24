@@ -22,10 +22,11 @@ router.get('/:id', function(req, res, next) {
 	})	
 })
 
-router.get('/album/:id', function(req, res, next) {
+router.get('/album/:id/:userid', function(req, res, next) {
 	Image.findAll({
 		where: {
-			albumId: req.params.id
+			albumId: req.params.id,
+			userId: req.params.userid
 		}
 	}).then(dataArr=>{
 		if (dataArr.length!==0) {

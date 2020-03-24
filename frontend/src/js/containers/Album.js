@@ -49,8 +49,17 @@ class Album extends React.Component {
         window.addEventListener('resize', this.sizeFunctionalRow);
 
 		const { getImages } = this.props;
-		const { albumId } = this.props.match.params;
-		getImages(albumId);
+		const { albumId, userId } = this.props.match.params;
+		getImages(albumId, userId);
+	}
+
+	shouldComponentUpdate(nextProps, nextState) {
+	  	if (this.props.match.params.albumId !== nextProps.match.params.albumId) {
+	  		const { getImages } = this.props;
+	  		const { albumId, userId } = nextProps.match.params;
+	  		getImages(albumId, userId);
+	  	};
+	  	return true;
 	}
 
 	componentWillUnmount(){
@@ -112,7 +121,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-	getImages: albumId => dispatch(getImages(albumId)),
+	getImages: (albumId, userId) => dispatch(getImages(albumId, userId)),
 	toggleSelectMode: () => dispatch(toggleSelectMode()),
 	deleteImages: imageIdArr => dispatch(deleteImages(imageIdArr)),
 	patchAlbumCover: (albumId, imageId) => dispatch(patchAlbumCover(albumId, imageId))

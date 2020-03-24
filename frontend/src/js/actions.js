@@ -87,10 +87,10 @@ export const patchUserAvatar = (data) => {
 }
 
 // AlbumInfo
-export const getAlbumInfo = (albumId) => {
+export const getAlbumInfo = (albumId, userId) => {
 	return {
 		type: GET_ALBUM_INFO,
-		payload: axios.get(`http://localhost:3006/album/${albumId}`)
+		payload: axios.get(`http://localhost:3006/album/info/${albumId}/${userId}`)
 	}
 }
 
@@ -159,10 +159,10 @@ export const addAlbum = (data) => {
 }
 
 // Album
-export const getImages = (albumId) => {
+export const getImages = (albumId, userId) => {
 	return {
 		type: GET_IMAGES,
-		payload: axios.get(`http://localhost:3006/image/album/${albumId}`)
+		payload: axios.get(`http://localhost:3006/image/album/${albumId}/${userId}`)
 	}
 }
 
