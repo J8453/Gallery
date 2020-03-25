@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { HashRouter as Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { login, setCurrentUser } from './js/actions'
+import { login, setCurrentUser } from './js/actions';
+import axios from 'axios';
 
 import HomePage from "./js/pages/HomePage";
 import UserPage from "./js/pages/UserPage";
@@ -13,9 +14,14 @@ class App extends React.Component {
 	componentDidMount() {
 		const token = localStorage.getItem('token');
 		if (token) {
-			// do sth to authenticate
-			// this.props.login(true);
-			// this.props.setCurrentUser();
+			axios.post('http://localhost:3006/login', { token })
+	            .then(response=>{
+	                this.props.login(true);
+	                this.props.setCurrentUser(response.data.user);
+	            })
+	            .catch(err=> {
+	                localStorage.removeItem('token');
+	            });
 		}
 	}
 	render() {
