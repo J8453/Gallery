@@ -56,7 +56,7 @@ const UserPortraitWithRouter = withRouter(UserPortrait);
 
 const mapStateToProps = state => ({
   isLoggedIn: state.app.isLoggedIn,
-  currentUser: state.app.currentUser,
+  currentUser: state.currentUser,
   username: state.userInfo.username,
   description: state.userInfo.description,
   avatarSrc: state.userInfo.avatarSrc

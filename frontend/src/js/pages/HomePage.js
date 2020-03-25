@@ -6,14 +6,16 @@ import '../../css/home.css';
 import Window from "../containers/Window"
 
 import { connect } from 'react-redux';
-import { login, showWindow, askForWindow } from '../actions';
+import { login, setCurrentUser, showWindow, askForWindow } from '../actions';
 
 class HomePage extends React.Component {
 
 	handleLogout(e) {
 		e.preventDefault();
-		const { login } = this.props;
-		login(false, '');
+		const { login, setCurrentUser } = this.props;
+		login(false);
+		setCurrentUser({});
+		localStorage.removeItem('token');
 	}
 
 	handleClick(windowTitle) {
@@ -33,7 +35,7 @@ class HomePage extends React.Component {
 			            <div className="description">Customize your own photo gallery.</div>
 			            { isLoggedIn && 
 				            <div className="buttons">
-				                <button className="btn" id="profileBtn"><Link to={`/user/${currentUser}`}>My Profile</Link></button>
+				                <button className="btn" id="profileBtn"><Link to={`/user/${currentUser.id}`}>My Profile</Link></button>
 			                	<button className="btn" onClick={this.handleLogout.bind(this)}>Logout</button>
 				            </div>
 				        }
@@ -55,11 +57,12 @@ class HomePage extends React.Component {
 
 const mapStateToProps = state => ({
   isLoggedIn: state.app.isLoggedIn,
-  currentUser: state.app.currentUser
+  currentUser: state.currentUser
 })
 
 const mapDispatchToProps = dispatch => ({
-  login: (bool, userId) => dispatch(login(bool, userId)),
+  login: bool => dispatch(login(bool)),
+  setCurrentUser: user => dispatch(setCurrentUser(user)),
   showWindow: bool => dispatch(showWindow(bool)),
   askForWindow: windowTitle => dispatch(askForWindow(windowTitle))
 })

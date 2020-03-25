@@ -18,7 +18,10 @@ router.post('/login', function(req, res, next) {
 			bcrypt.compare(plainPassword, hash, function(err, result) {
 			    if (result) {
 			    	// 是不是要設個token或session啥ㄉ（但目前還不會）
-			    	res.send(data.dataValues);
+			    	res.send({
+			    		user: data.dataValues,
+			    		jwt: 'test token'
+			    	});
 			    } else {
 			    	// this is wrong but why:
 			    	// throw new Error("password is wrong.");
@@ -60,7 +63,10 @@ router.post('/register', function(req, res, next) {
 						.then(data=>data.dataValues)
 						.then(data=>{
 							console.log(data);
-							res.send(data);
+							res.send({
+								user: data,
+								jwt: 'test token'
+							});
 						})
 						.catch(err=>{
 							console.log(err);

@@ -1,4 +1,4 @@
-import { LOGIN, GET_ALBUMS, GET_IMAGES, SHOW_CARD, ASKFOR_FORM, SHOW_WINDOW, ASKFOR_WINDOW, DELETE_ALBUMS, DELETE_IMAGES } from './actionTypes';
+import { LOGIN, SET_CURRENT_USER, GET_ALBUMS, GET_IMAGES, SHOW_CARD, ASKFOR_FORM, SHOW_WINDOW, ASKFOR_WINDOW, DELETE_ALBUMS, DELETE_IMAGES } from './actionTypes';
 import { GET_USER_INFO, PATCH_USER_INFO, GET_ALBUM_INFO, PATCH_ALBUM_INFO, PATCH_ALBUM_COVER, PREVIEW_PORTRAIT, TOGGLE_SELECT_MODE, REVISE_SELECTED_ID_ARR, SINGLE_SELECT, UPDATE_SINGLE_SELECTED_ID } from './actionTypes';
 import { ADD_ALBUM, ADD_IMAGES, PATCH_USER_AVATAR } from './actionTypes';
 
@@ -6,12 +6,18 @@ import axios from 'axios';
 
 // action creater
 
+export const setCurrentUser = (user) => {
+	return {
+		type: SET_CURRENT_USER,
+		user
+	}
+}
+
 // App
-export const login = (bool, userId) => {
+export const login = (bool) => {
 	return {
 		type: LOGIN,
 		isLoggedIn: bool,
-		currentUser: userId
 	}
 }
 

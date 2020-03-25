@@ -4,7 +4,6 @@ import { LOGIN, SHOW_CARD, ASKFOR_FORM, SHOW_WINDOW, ASKFOR_WINDOW, PATCH_USER_I
 
 const initialState = {
 	isLoggedIn: false,
-	currentUser: '',
 	cardIsShown: false,
 	formTitle: '',
 	windowIsShown: false,
@@ -15,8 +14,7 @@ function AppReducer(state = initialState, action) {
 	switch (action.type) {
 		case LOGIN: {
 			return Object.assign({}, state, {
-				isLoggedIn: action.isLoggedIn,
-				currentUser: action.currentUser
+				isLoggedIn: action.isLoggedIn
 			})
 		}
 		case SHOW_CARD: {

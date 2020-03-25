@@ -61,7 +61,7 @@ const AlbumPortraitWithRouter = withRouter(AlbumPortrait);
 
 const mapStateToProps = state => ({
   isLoggedIn: state.app.isLoggedIn,
-  currentUser: state.app.currentUser,
+  currentUser: state.currentUser,
   name: state.albumInfo.name,
   description: state.albumInfo.description,
   coverSrc: state.albumInfo.coverSrc,

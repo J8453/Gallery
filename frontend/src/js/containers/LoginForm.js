@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { login, showWindow } from '../actions';
+import { login, setCurrentUser, showWindow } from '../actions';
 import axios from 'axios';
 
 class LoginForm extends React.Component {
@@ -34,19 +34,16 @@ class LoginForm extends React.Component {
             return;
         }
         
-        const { login, showWindow } = this.props;
+        const { login, setCurrentUser, showWindow } = this.props;
 
         axios.post('http://localhost:3006/login', {
             username: this.state.username,
             password: this.state.password
         })
             .then(response=>{
-                this.setState({
-                    username: '',
-                    password: '',
-                    message: ''
-                });
-                login(true, response.data.id);
+                login(true);
+                setCurrentUser(response.data.user);
+                localStorage.setItem('token', response.data.jwt);
                 showWindow(false);
             })
             .catch(err=> {
@@ -88,7 +85,8 @@ class LoginForm extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  login: (bool, userId) => dispatch(login(bool, userId)),
+  login: bool => dispatch(login(bool)),
+  setCurrentUser: user => dispatch(setCurrentUser(user)),
   showWindow: bool => dispatch(showWindow(bool))
 })
 
