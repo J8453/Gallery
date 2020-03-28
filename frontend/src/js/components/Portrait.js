@@ -26,7 +26,7 @@ class Portrait extends React.Component {
                 { isLoggedIn && owner==currentUser.id && <div className="info__portrait--cover mask" onClick={maskCallback}>{maskText}</div> }
             </div>
             <div className="info__portrait--introduction">
-                { isLoggedIn && owner==currentUser.id && <span className="editIcon pointer" onClick={editCallback}>🖊</span> }
+                { isLoggedIn && owner==currentUser.id && <span className="editIcon fs-middle pointer" onClick={editCallback}>🖊</span> }
                 <h1 className="info__portrait--title">{title}</h1>
                 <p className="info__portrait--description">{description}</p>
             </div>

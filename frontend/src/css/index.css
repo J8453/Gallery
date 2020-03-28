@@ -6,14 +6,14 @@
     /*border: 1px solid #00000080;*/
 }
 
-/*functional css --- 0313*/
-.editIcon {
-    font-size: 1.5em;
+/*functional css*/
+.fs-middle {
+    font-size: 1.2em;
 }
 .pointer:hover {
     cursor: pointer;
 }
-/*functional css --- 0313*/
+/*functional css*/
 
 
 /* register window & login window */
@@ -78,7 +78,7 @@ form .form__row input {
 
 form .form__row input {
     width: 0px;
-    /*幹為什麼它設成0就ok了我不知道 啊我也不知道我怎麼知道要設成0*/
+    /*inputElem有預設的寬度；此處設成0讓它照flex設定伸縮*/
 }
 
 form .form__row input[type="file"] {
@@ -326,11 +326,6 @@ form .form__title {
     flex-basis: 100%;
 }
 
-/*.card>div:first-child {
-    flex: 1;
-    display: flex;
-}*/
-
 /**/
 .card .formInCard {
     border: 1px solid #00000060;
@@ -345,18 +340,6 @@ form .form__title {
     flex-basis: 450px; /* 和min-width一樣 ? */
 }
 /**/
-
-/*span {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #CC543A;
-}
-
-span:hover {
-    cursor: pointer;
-    color: #00000099;
-}*/
-
 
 /*mask*/
 .mask {
@@ -385,12 +368,11 @@ span:hover {
     opacity: 1;
     text-shadow: 1px 1px 3px #00000099;
 }
-
+/*mask end*/
 
 /*updatecAvatarPreview*/
 .form__updateAvatar--preview {
     flex: 0 0 250px;
-    /*width: 250px;*/
     height: 250px;
     display: flex;
     justify-content: center;
@@ -401,3 +383,4 @@ span:hover {
 .form__updateAvatar--preview >img{
     max-height: 100%;
 }
+/*updatecAvatarPreview end*/

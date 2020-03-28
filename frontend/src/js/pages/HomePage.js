@@ -29,7 +29,7 @@ class HomePage extends React.Component {
 		const spanCss = {
 			color: '#CC543A',
 			flex: '0 0 0'
-		}
+		};
 		return (
 			<div>
 				<div className="container">
