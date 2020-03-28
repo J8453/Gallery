@@ -48,7 +48,7 @@ class RegisterForm extends React.Component {
         }
 
         const { login, setCurrentUser, showWindow } = this.props;
-        axios.post('http://localhost:3006/register', {
+        axios.post('http://13.228.36.118/backend/register', {
             username: this.state.username,
             password: this.state.password
         })

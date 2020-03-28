@@ -1,11 +1,14 @@
-import { LOGIN, SET_CURRENT_USER, GET_ALBUMS, GET_IMAGES, SHOW_CARD, ASKFOR_FORM, SHOW_WINDOW, ASKFOR_WINDOW, DELETE_ALBUMS, DELETE_IMAGES } from './actionTypes';
-import { GET_USER_INFO, PATCH_USER_INFO, GET_ALBUM_INFO, PATCH_ALBUM_INFO, PATCH_ALBUM_COVER, PREVIEW_PORTRAIT, TOGGLE_SELECT_MODE, REVISE_SELECTED_ID_ARR, SINGLE_SELECT, UPDATE_SINGLE_SELECTED_ID } from './actionTypes';
-import { ADD_ALBUM, ADD_IMAGES, PATCH_USER_AVATAR } from './actionTypes';
+import { SET_CURRENT_USER, LOGIN, SHOW_CARD, ASKFOR_FORM, SHOW_WINDOW, ASKFOR_WINDOW } from './actionTypes';
+import { GET_USER_INFO, PATCH_USER_INFO, PATCH_USER_AVATAR, GET_ALBUM_INFO, PATCH_ALBUM_INFO, PREVIEW_PORTRAIT, PATCH_ALBUM_COVER } from './actionTypes';
+import { GET_ALBUMS, DELETE_ALBUMS, ADD_ALBUM } from './actionTypes';
+import { GET_IMAGES, DELETE_IMAGES, ADD_IMAGES } from './actionTypes';
+import { TOGGLE_SELECT_MODE, REVISE_SELECTED_ID_ARR, SINGLE_SELECT, UPDATE_SINGLE_SELECTED_ID } from './actionTypes';
 
 import axios from 'axios';
 
 // action creater
 
+// CurrentUser
 export const setCurrentUser = (user) => {
 	return {
 		type: SET_CURRENT_USER,
@@ -53,7 +56,7 @@ export const askForWindow = (windowTitle) => {
 export const getUserInfo = (userId) => {
 	return {
 		type: GET_USER_INFO,
-		payload: axios.get(`http://localhost:3006/user/${userId}`)
+		payload: axios.get(`http://13.228.36.118/backend/user/${userId}`)
 	}
 }
 
@@ -62,7 +65,7 @@ export const patchUserInfo = (userId, description) => {
 		type: PATCH_USER_INFO,
 		payload: axios({
 			method: 'patch',
-		  	url: `http://localhost:3006/user/${userId}/info`,
+		  	url: `http://13.228.36.118/backend/user/${userId}/info`,
 		  	data: {
 		    	description
 		  	}
@@ -75,7 +78,7 @@ export const patchUserInfo = (userId, description) => {
 // 		type: PATCH_USER_AVATAR,
 // 		payload: axios({
 //             method: 'patch',
-//             url: 'http://localhost:3006/upload/avatar',
+//             url: 'http://13.228.36.118/backend/upload/avatar',
 //             data: formData,
 //             headers: {'Content-Type': 'multipart/form-data' }
 //         })
@@ -86,7 +89,7 @@ export const patchUserAvatar = (data) => {
 		type: PATCH_USER_AVATAR,
 		payload: axios({
             method: 'patch',
-            url: `http://localhost:3006/user/${data.userId}/avatar`,
+            url: `http://13.228.36.118/backend/user/${data.userId}/avatar`,
             data
         })
 	}
@@ -96,7 +99,7 @@ export const patchUserAvatar = (data) => {
 export const getAlbumInfo = (albumId, userId) => {
 	return {
 		type: GET_ALBUM_INFO,
-		payload: axios.get(`http://localhost:3006/album/info/${albumId}/${userId}`)
+		payload: axios.get(`http://13.228.36.118/backend/album/info/${albumId}/${userId}`)
 	}
 }
 
@@ -105,7 +108,7 @@ export const patchAlbumInfo = (albumId, data) => {
 		type: PATCH_ALBUM_INFO,
 		payload: axios({
 			method: 'patch',
-		  	url: `http://localhost:3006/album/${albumId}/info`,
+		  	url: `http://13.228.36.118/backend/album/${albumId}/info`,
 		  	data: {
 		    	name: data.name,
 		    	description: data.description
@@ -125,7 +128,7 @@ export const previewPortrait = (id) => {
 export const getAlbums = (userId) => {
 	return {
 		type: GET_ALBUMS,
-		payload: axios.get(`http://localhost:3006/album/user/${userId}`)
+		payload: axios.get(`http://13.228.36.118/backend/album/user/${userId}`)
 	}
 }
 
@@ -134,7 +137,7 @@ export const deleteAlbums = (albumIdArr) => {
 		type: DELETE_ALBUMS,
 		payload: axios({
 			method: 'delete',
-		  	url: 'http://localhost:3006/album',
+		  	url: 'http://13.228.36.118/backend/album',
 		  	data: {
 		    	idArr: albumIdArr
 		  	}
@@ -147,7 +150,7 @@ export const deleteAlbums = (albumIdArr) => {
 // 		type: ADD_ALBUM,
 // 		payload: axios({
 //             method: 'post',
-//             url: 'http://localhost:3006/upload/album',
+//             url: 'http://13.228.36.118/backend/upload/album',
 //             data: formData,
 //             headers: {'Content-Type': 'multipart/form-data'}
 //         })
@@ -158,7 +161,7 @@ export const addAlbum = (data) => {
 		type: ADD_ALBUM,
 		payload: axios({
             method: 'post',
-            url: 'http://localhost:3006/album',
+            url: 'http://13.228.36.118/backend/album',
             data
         })
 	}
@@ -168,7 +171,7 @@ export const addAlbum = (data) => {
 export const getImages = (albumId, userId) => {
 	return {
 		type: GET_IMAGES,
-		payload: axios.get(`http://localhost:3006/image/album/${albumId}/${userId}`)
+		payload: axios.get(`http://13.228.36.118/backend/image/album/${albumId}/${userId}`)
 	}
 }
 
@@ -177,7 +180,7 @@ export const deleteImages = (imageIdArr) => {
 		type: DELETE_IMAGES,
 		payload: axios({
 			method: 'delete',
-		  	url: 'http://localhost:3006/image',
+		  	url: 'http://13.228.36.118/backend/image',
 		  	data: {
 		    	idArr: imageIdArr
 		  	}
@@ -190,7 +193,7 @@ export const deleteImages = (imageIdArr) => {
 // 		type: ADD_IMAGES,
 // 		payload: axios({
 //             method: 'post',
-//             url: 'http://localhost:3006/upload/image',
+//             url: 'http://13.228.36.118/backend/upload/image',
 //             data: formData,
 //             headers: {'Content-Type': 'multipart/form-data' }
 //         })
@@ -201,7 +204,7 @@ export const addImages = (data) => {
 		type: ADD_IMAGES,
 		payload: axios({
             method: 'post',
-            url: 'http://localhost:3006/image',
+            url: 'http://13.228.36.118/backend/image',
             data
         })
 	}
@@ -212,7 +215,7 @@ export const patchAlbumCover = (albumId, imageId) => {
 		type: PATCH_ALBUM_COVER,
 		payload: axios({
 			method: 'patch',
-		  	url: `http://localhost:3006/album/${albumId}/cover`,
+		  	url: `http://13.228.36.118/backend/album/${albumId}/cover`,
 		  	data: {
 		    	imageId
 		  	}

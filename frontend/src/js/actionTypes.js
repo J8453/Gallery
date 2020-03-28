@@ -1,32 +1,31 @@
-export const LOGIN = 'LOGIN'
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'
-
-export const GET_ALBUMS = 'GET_ALBUMS'
-export const GET_IMAGES = 'GET_IMAGES'
-
+export const LOGIN = 'LOGIN'
 export const SHOW_CARD = 'SHOW_CARD'
 export const ASKFOR_FORM = 'ASKFOR_FORM'
 export const SHOW_WINDOW = 'SHOW_WINDOW'
 export const ASKFOR_WINDOW = 'ASKFOR_WINDOW'
 
+export const GET_USER_INFO = 'GET_USER_INFO'
+export const PATCH_USER_INFO = 'PATCH_USER_INFO'
+export const PATCH_USER_AVATAR = 'PATCH_USER_AVATAR'
+
+export const GET_ALBUM_INFO = 'GET_ALBUM_INFO'
+export const PATCH_ALBUM_INFO = 'PATCH_ALBUM_INFO'
+export const PREVIEW_PORTRAIT = 'PREVIEW_PORTRAIT'
+export const PATCH_ALBUM_COVER = 'PATCH_ALBUM_COVER'
+
+export const GET_ALBUMS = 'GET_ALBUMS'
+export const GET_IMAGES = 'GET_IMAGES'
 export const DELETE_ALBUMS = 'DELETE_ALBUMS'
 export const DELETE_IMAGES = 'DELETE_IMAGES'
-
-export const GET_USER_INFO = 'GET_USER_INFO'
-export const GET_ALBUM_INFO = 'GET_ALBUM_INFO'
+export const ADD_ALBUM = 'ADD_ALBUM'
+export const ADD_IMAGES = 'ADD_IMAGES'
 
 export const TOGGLE_SELECT_MODE = 'TOGGLE_SELECT_MODE'
 export const SINGLE_SELECT = 'SINGLE_SELECT'
 export const REVISE_SELECTED_ID_ARR = 'REVISE_SELECTED_ID_ARR'
-
-export const PATCH_USER_INFO = 'PATCH_USER_INFO'
-export const PATCH_ALBUM_INFO = 'PATCH_ALBUM_INFO'
-export const PATCH_ALBUM_COVER = 'PATCH_ALBUM_COVER'
-
 export const UPDATE_SINGLE_SELECTED_ID = 'UPDATE_SINGLE_SELECTED_ID'
 
-export const PREVIEW_PORTRAIT = 'PREVIEW_PORTRAIT'
 
-export const ADD_ALBUM = 'ADD_ALBUM'
-export const ADD_IMAGES = 'ADD_IMAGES'
-export const PATCH_USER_AVATAR = 'PATCH_USER_AVATAR'
+
+
