@@ -53,7 +53,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  patchUserInfo: (userId, description) => dispatch(patchUserInfo(userId, description)),
+  patchUserInfo: (userId, data) => dispatch(patchUserInfo(userId, data)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditPersonalInfoForm)

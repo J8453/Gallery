@@ -60,14 +60,14 @@ export const getUserInfo = (userId) => {
 	}
 }
 
-export const patchUserInfo = (userId, description) => {
+export const patchUserInfo = (userId, data) => {
 	return {
 		type: PATCH_USER_INFO,
 		payload: axios({
 			method: 'patch',
 		  	url: `http://13.228.36.118/backend/user/${userId}/info`,
 		  	data: {
-		    	description
+		    	description: data.description
 		  	}
 		})
 	}
