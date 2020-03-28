@@ -26,12 +26,16 @@ class HomePage extends React.Component {
 
 	render() {
 		const { isLoggedIn, currentUser } = this.props;
+		const spanCss = {
+			color: '#CC543A',
+			flex: '0 0 0'
+		}
 		return (
 			<div>
 				<div className="container">
 					<Window />
 					<div className="bg">
-			            <div className="title">Gallery.co</div>
+			            <div className="title">the<span style={spanCss}>G</span>allery</div>
 			            <div className="description">Customize your own photo gallery.</div>
 			            { isLoggedIn && 
 				            <div className="buttons">
@@ -46,9 +50,6 @@ class HomePage extends React.Component {
 				            </div>
 			        	}
 			        </div>
-			    </div>
-			    <div className="container">
-			    	some introduction :)
 			    </div>
 			</div>
         )
