@@ -3,11 +3,14 @@ import { connect } from 'react-redux';
 import { addImages } from '../actions';
 import axios from 'axios';
 
+import FormLoader from '../components/FormLoader';
+
 class AddPhotosForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            files: ''
+            files: '',
+            isSubmitting: false
         }
     }
 
@@ -19,6 +22,9 @@ class AddPhotosForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        this.setState({
+            isSubmitting: true
+        });
         const { addImages } = this.props;
         const { userId, albumId } = this.props.match.params;
         // const formData = new FormData();
@@ -71,13 +77,17 @@ class AddPhotosForm extends React.Component {
                 <div className="form__row form__title">
                     Add photos
                 </div>
-                <div className="form__row">
-                    <label htmlFor="uploads">Upload Photos</label>
-                    <input type="file" accept="image/jpeg" name="image" id="uploads" multiple onChange={this.handleFilesChange.bind(this)} />
-                </div>
-                <div className="form__row">
-                    <button type="submit" className="btn">Upload</button>
-                </div>
+                { this.state.isSubmitting && <FormLoader /> }
+                { !this.state.isSubmitting &&
+                    <div>
+                        <div className="form__row">
+                            <label htmlFor="uploads">Upload Photos</label>
+                            <input type="file" accept="image/jpeg" name="image" id="uploads" multiple onChange={this.handleFilesChange.bind(this)} />
+                        </div>
+                        <div className="form__row">
+                            <button type="submit" className="btn">Upload</button>
+                        </div>
+                    </div> }
             </form>
         )
     }

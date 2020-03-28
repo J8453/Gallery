@@ -68,7 +68,8 @@ class Album extends React.Component {
 
 	render() {
 		// console.log('Album render');
-		const { images, isGetImagesRequesting, isSelectMode, isSingleSelect, toggleSelectMode } = this.props;
+		const { images, isGetImagesRequesting, isSelectMode, isSingleSelect, toggleSelectMode, currentUser } = this.props;
+		const { userId: owner } = this.props.match.params;
 
 		const { url } = this.props.match;
 		const prevUrl = url.slice(0, url.indexOf('/album/'));
@@ -86,7 +87,7 @@ class Album extends React.Component {
 			<div className="content"  style={ isSelectMode ? bgPink : {} }>
 				<div className="content__functionalRow" style={ isSelectMode ? bgPink : {} }>
 					{ !isSelectMode && <Link to={prevUrl} style={textCss}>Back to Profile</Link> }
-					{ !isSelectMode && <span style={textCss} onClick={toggleSelectMode}>Select</span> }
+					{ !isSelectMode && parseInt(owner)===currentUser.id && <span style={textCss} onClick={toggleSelectMode}>Select</span> }
 					{ isSelectMode && <span></span> }
 					{ isSelectMode &&
 						<span>
@@ -118,6 +119,7 @@ const mapStateToProps = state => ({
   selectedImages: state.album.selectedImages,
   isSingleSelect: state.album.isSingleSelect,
   singleSelectedId: state.album.singleSelectedId,
+  currentUser: state.currentUser
 })
 
 const mapDispatchToProps = dispatch => ({

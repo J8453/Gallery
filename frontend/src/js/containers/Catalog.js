@@ -59,8 +59,8 @@ class Catalog extends React.Component {
 
 	render() {
 		// console.log('Catalog render');
-		// console.log('Catalog', this.props);
-		const { albums, isGetAlbumsRequesting, isSelectMode, toggleSelectMode, reviseSelectedIdArr } = this.props;
+		const { albums, isGetAlbumsRequesting, isSelectMode, toggleSelectMode, reviseSelectedIdArr, currentUser } = this.props;
+		const { userId: owner } = this.props.match.params;
 
 		const textCss = {
 			textDecoration: 'none',
@@ -75,7 +75,7 @@ class Catalog extends React.Component {
 			<div className="content" style={ isSelectMode ? bgPink : {} }>
 				<div className="content__functionalRow" style={ isSelectMode ? bgPink : {} }>
 					<span></span>
-					{ !isSelectMode && <span style={textCss} onClick={toggleSelectMode}>Select</span> }
+					{ !isSelectMode && parseInt(owner)===currentUser.id && <span style={textCss} onClick={toggleSelectMode}>Select</span> }
 					{ isSelectMode &&
 						<span>
 							<span style={textCss} onClick={this.handleDelete.bind(this)}>Delete</span>
@@ -84,7 +84,7 @@ class Catalog extends React.Component {
 					}
 				</div>
 				<div className="span"></div>
-				{ isGetAlbumsRequesting && <Loader /> }
+				{ isGetAlbumsRequesting && albums.length===0 && <Loader /> }
 				{ albums.map(album=>{
 					return (
 						<AlbumCover 
@@ -108,7 +108,8 @@ const mapStateToProps = state => ({
   isGetAlbumsRequesting: state.catalog.isGetAlbumsRequesting,
   albums: state.catalog.albums,
   isSelectMode: state.catalog.isSelectMode,
-  selectedAlbums: state.catalog.selectedAlbums
+  selectedAlbums: state.catalog.selectedAlbums,
+  currentUser: state.currentUser
 })
 
 const mapDispatchToProps = dispatch => ({

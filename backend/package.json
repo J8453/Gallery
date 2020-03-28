@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "PORT=3006 nodemon ./bin/www"
+    "start": "PORT=3006 node ./bin/www",
+    "dev": "PORT=3006 nodemon ./bin/www"
   },
   "dependencies": {
     "bcrypt": "^4.0.1",

@@ -3,13 +3,16 @@ import { connect } from 'react-redux';
 import { addAlbum } from '../actions';
 import axios from 'axios';
 
+import FormLoader from '../components/FormLoader';
+
 class CreateAlbumForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             name: '',
             description: '',
-            files: ''
+            files: '',
+            isSubmitting: false
         }
     }
 
@@ -33,6 +36,9 @@ class CreateAlbumForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        this.setState({
+            isSubmitting: true
+        });
         const { addAlbum } = this.props;
         const { userId } = this.props.match.params;
         // const formData = new FormData();
@@ -87,21 +93,25 @@ class CreateAlbumForm extends React.Component {
                 <div className="form__row form__title">
                     Create a New Album
                 </div>
-                <div className="form__row">
-                    <label htmlFor="albumName">Album Name</label>
-                    <input type="text" name="name" id="albumName" onChange={this.handleNameChange.bind(this)} />
-                </div>
-                <div className="form__row">
-                    <label className="forTextarea" htmlFor="albumDescription">Album Description</label>
-                    <textarea type="text" name="description" id="albumDescription" rows="5" onChange={this.handleDescriptionChange.bind(this)} />
-                </div>
-                <div className="form__row">
-                    <label htmlFor="uploads">Upload Photos</label>
-                    <input type="file" accept="image/jpeg" name="image" id="uploads" multiple onChange={this.handleFilesChange.bind(this)} />
-                </div>
-                <div className="form__row">
-                    <button type="submit" className="btn">Submit</button>
-                </div>
+                { this.state.isSubmitting && <FormLoader /> }
+                { !this.state.isSubmitting &&
+                    <div>
+                        <div className="form__row">
+                            <label htmlFor="albumName">Album Name</label>
+                            <input type="text" name="name" id="albumName" onChange={this.handleNameChange.bind(this)} />
+                        </div>
+                        <div className="form__row">
+                            <label className="forTextarea" htmlFor="albumDescription">Album Description</label>
+                            <textarea type="text" name="description" id="albumDescription" rows="5" onChange={this.handleDescriptionChange.bind(this)} />
+                        </div>
+                        <div className="form__row">
+                            <label htmlFor="uploads">Upload Photos</label>
+                            <input type="file" accept="image/jpeg" name="image" id="uploads" multiple onChange={this.handleFilesChange.bind(this)} />
+                        </div>
+                        <div className="form__row">
+                            <button type="submit" className="btn">Submit</button>
+                        </div>
+                    </div> }    
             </form>
         )
     }

@@ -16,7 +16,8 @@ function AlbumReducer(state = initialState, action) {
 	switch (action.type) {
 		case `${GET_IMAGES}_${ActionType.Pending}`: {
 			return Object.assign({}, state, {
-				isGetImagesRequesting: true
+				isGetImagesRequesting: true,
+				images: []
 			})
 		}
 		case `${GET_IMAGES}_${ActionType.Fulfilled}`: {

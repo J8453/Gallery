@@ -3,11 +3,14 @@ import { connect } from 'react-redux';
 import { patchUserAvatar } from '../actions';
 import axios from 'axios';
 
+import FormLoader from '../components/FormLoader';
+
 class UpdateAvatarForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            file: ''
+            file: '',
+            isSubmitting: false
         }
     }
 
@@ -32,6 +35,9 @@ class UpdateAvatarForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        this.setState({
+            isSubmitting: true
+        });
         const { patchUserAvatar } = this.props;
         const { userId } = this.props.match.params;
         // const formData = new FormData();
@@ -90,9 +96,11 @@ class UpdateAvatarForm extends React.Component {
                         <img src="" alt="" />
                     </div>
                 </div>
-                <div className="form__row">
-                    <button type="submit" className="btn">Upload</button>
-                </div>
+                { this.state.isSubmitting && <FormLoader /> }
+                { !this.state.isSubmitting && 
+                    <div className="form__row">
+                        <button type="submit" className="btn">Upload</button>
+                    </div> }
             </form>
         )
     }
