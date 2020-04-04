@@ -4,8 +4,8 @@ This is a **image-sharing platform** now only features basic album creating and 
 Since this project is driven by my interest (photographing) and that I'm still continuously working on it,<br>
 I'd like to say that it'll grow up with more functions soon.<br><br>
 You're more than welcome to take a look then :).<br><br>
-The project is developed as a single page application and uses:
-    - React + Redux
+The project is developed as a single page application and uses:<br>
+    - React + Redux<br>
     - Express + MySQL
 
 ## DEMO
