@@ -14,7 +14,7 @@ class App extends React.Component {
 	componentDidMount() {
 		const token = localStorage.getItem('token');
 		if (token) {
-			axios.post('http://localhost:3006/login', { token })
+			axios.post(`${process.env.REACT_APP_API_URL}/login`, { token })
 	            .then(response=>{
 	                this.props.login(true);
 	                this.props.setCurrentUser(response.data.user);

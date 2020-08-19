@@ -48,7 +48,7 @@ class RegisterForm extends React.Component {
         }
 
         const { login, setCurrentUser, showWindow } = this.props;
-        axios.post('https://thegallery.onthewifi.com/backend/register', {
+        axios.post(`${process.env.REACT_APP_API_URL}/register`, {
             username: this.state.username,
             password: this.state.password
         })

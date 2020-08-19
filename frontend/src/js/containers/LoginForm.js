@@ -36,7 +36,7 @@ class LoginForm extends React.Component {
         
         const { login, setCurrentUser, showWindow } = this.props;
 
-        axios.post('https://thegallery.onthewifi.com/backend/login', {
+        axios.post(`${process.env.REACT_APP_API_URL}/login`, {
             username: this.state.username,
             password: this.state.password
         })

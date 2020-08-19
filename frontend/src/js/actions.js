@@ -56,7 +56,7 @@ export const askForWindow = (windowTitle) => {
 export const getUserInfo = (userId) => {
 	return {
 		type: GET_USER_INFO,
-		payload: axios.get(`https://thegallery.onthewifi.com/backend/user/${userId}`)
+		payload: axios.get(`${process.env.REACT_APP_API_URL}/user/${userId}`)
 	}
 }
 
@@ -65,7 +65,7 @@ export const patchUserInfo = (userId, data) => {
 		type: PATCH_USER_INFO,
 		payload: axios({
 			method: 'patch',
-		  	url: `https://thegallery.onthewifi.com/backend/user/${userId}/info`,
+		  	url: `${process.env.REACT_APP_API_URL}/user/${userId}/info`,
 		  	data: {
 		    	description: data.description
 		  	}
@@ -89,7 +89,7 @@ export const patchUserAvatar = (data) => {
 		type: PATCH_USER_AVATAR,
 		payload: axios({
             method: 'patch',
-            url: `https://thegallery.onthewifi.com/backend/user/${data.userId}/avatar`,
+            url: `${process.env.REACT_APP_API_URL}/user/${data.userId}/avatar`,
             data
         })
 	}
@@ -99,7 +99,7 @@ export const patchUserAvatar = (data) => {
 export const getAlbumInfo = (albumId, userId) => {
 	return {
 		type: GET_ALBUM_INFO,
-		payload: axios.get(`https://thegallery.onthewifi.com/backend/album/info/${albumId}/${userId}`)
+		payload: axios.get(`${process.env.REACT_APP_API_URL}/album/info/${albumId}/${userId}`)
 	}
 }
 
@@ -108,7 +108,7 @@ export const patchAlbumInfo = (albumId, data) => {
 		type: PATCH_ALBUM_INFO,
 		payload: axios({
 			method: 'patch',
-		  	url: `https://thegallery.onthewifi.com/backend/album/${albumId}/info`,
+		  	url: `${process.env.REACT_APP_API_URL}/album/${albumId}/info`,
 		  	data: {
 		    	name: data.name,
 		    	description: data.description
@@ -128,7 +128,7 @@ export const previewPortrait = (id) => {
 export const getAlbums = (userId) => {
 	return {
 		type: GET_ALBUMS,
-		payload: axios.get(`https://thegallery.onthewifi.com/backend/album/user/${userId}`)
+		payload: axios.get(`${process.env.REACT_APP_API_URL}/album/user/${userId}`)
 	}
 }
 
@@ -137,7 +137,7 @@ export const deleteAlbums = (albumIdArr) => {
 		type: DELETE_ALBUMS,
 		payload: axios({
 			method: 'delete',
-		  	url: 'https://thegallery.onthewifi.com/backend/album',
+		  	url: `${process.env.REACT_APP_API_URL}/album`,
 		  	data: {
 		    	idArr: albumIdArr
 		  	}
@@ -161,7 +161,7 @@ export const addAlbum = (data) => {
 		type: ADD_ALBUM,
 		payload: axios({
             method: 'post',
-            url: 'https://thegallery.onthewifi.com/backend/album',
+            url: `${process.env.REACT_APP_API_URL}/album`,
             data
         })
 	}
@@ -171,7 +171,7 @@ export const addAlbum = (data) => {
 export const getImages = (albumId, userId) => {
 	return {
 		type: GET_IMAGES,
-		payload: axios.get(`https://thegallery.onthewifi.com/backend/image/album/${albumId}/${userId}`)
+		payload: axios.get(`${process.env.REACT_APP_API_URL}/image/album/${albumId}/${userId}`)
 	}
 }
 
@@ -180,7 +180,7 @@ export const deleteImages = (imageIdArr) => {
 		type: DELETE_IMAGES,
 		payload: axios({
 			method: 'delete',
-		  	url: 'https://thegallery.onthewifi.com/backend/image',
+		  	url: `${process.env.REACT_APP_API_URL}/image`,
 		  	data: {
 		    	idArr: imageIdArr
 		  	}
@@ -204,7 +204,7 @@ export const addImages = (data) => {
 		type: ADD_IMAGES,
 		payload: axios({
             method: 'post',
-            url: 'https://thegallery.onthewifi.com/backend/image',
+            url: `${process.env.REACT_APP_API_URL}/image`,
             data
         })
 	}
@@ -215,7 +215,7 @@ export const patchAlbumCover = (albumId, imageId) => {
 		type: PATCH_ALBUM_COVER,
 		payload: axios({
 			method: 'patch',
-		  	url: `https://thegallery.onthewifi.com/backend/album/${albumId}/cover`,
+		  	url: `${process.env.REACT_APP_API_URL}/album/${albumId}/cover`,
 		  	data: {
 		    	imageId
 		  	}
